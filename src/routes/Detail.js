@@ -4,13 +4,13 @@ import Movie from "../components/Movie";
 
 function Detail(){
     const [loading, setLoading] = useState(true);
-    const [movies, setMovies] = useState([]);
+    const [movie, setMovie] = useState([]);
     const {id} = useParams();
     const getMovie = async () => {
         const json = await (
             await fetch (`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
                 ).json();
-                setMovies(json.data.movie);
+                setMovie(json.data.movie);
                 setLoading(false);
                 console.log(json);
     };
@@ -20,22 +20,19 @@ function Detail(){
     return (
     <div>
     {loading ? <strong>Loading...</strong> : 
-      <div>
-     
-     {movie.map(movie =>(
-          <Movie 
+    <div>
+        <Movie 
             key={movie.id}
             id={movie.id}
             movieImg={movie.medium_cover_image}
             title={movie.title}
             summary={movie.summary}
             genres={movie.genres}
-          />
-        ))}
-    
-      </div>
+        />
+
+    </div>
     }
-  </div>
+    </div>
     );
 }
 
